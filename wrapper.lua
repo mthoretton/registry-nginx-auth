@@ -46,10 +46,12 @@ end
 
 
 function M.get_token()
-  ngx.log(ngx.WARN, ngx.var.http_Authorization)
-  local bauth = get_auth_params("basicauth", ngx.var.request_method).user_key
-  local token = split(bauth, ":")[2]
-  ngx.req.set_header('AUTHORIZATION', "Bearer " .. token)
+  if ngx.var.http_Authorization ~= nil then
+    ngx.log(ngx.WARN, ngx.var.http_Authorization)
+    local bauth = get_auth_params("basicauth", ngx.var.request_method).user_key
+    local token = split(bauth, ":")[2]
+    ngx.req.set_header('AUTHORIZATION', "Bearer " .. token)
+  end
 end
 
 return M
