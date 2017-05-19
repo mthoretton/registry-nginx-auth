@@ -8,5 +8,5 @@ RUN cd /usr/local/openresty/nginx-jwt \
   && tar xfv nginx-jwt.tar.gz \
   && rm nginx-jwt.tar.gz
 
-COPY wrapper.lua /usr/local/openresty/nginx-jwt/wrapper.lua
+COPY auth_rewrite.lua /usr/local/openresty/nginx-jwt/auth_rewrite.lua
 COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
