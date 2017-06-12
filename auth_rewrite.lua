@@ -47,9 +47,10 @@ function M.get_token()
       ngx.req.set_header('AUTHORIZATION', "Bearer " .. token)
     end
   else
-    ngx.req.set_header("WWW-Authenticate", "Basic realm=\"gyg docker registry\"")
-    ngx.status = 401
-    ngx.exit(ngx.OK)
+    ngx.header.content_type = 'text/plain'
+    ngx.header.www_authenticate = 'Basic realm="gyg docker registry"'
+    ngx.status = ngx.HTTP_UNAUTHORIZED
+    ngx.say('401 Access Denied')
   end
 end
 
