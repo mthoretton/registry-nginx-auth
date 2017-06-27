@@ -40,11 +40,13 @@ end
 function M.get_token()
   if ngx.var.http_Authorization ~= nil then
     local bauth = get_auth_params().user_key
-    bauth = basexx.from_base64(bauth)
+    if bauth ~= nil then
+      bauth = basexx.from_base64(bauth)
 
-    if split(bauth, ":")[1] == "gygdev-token" then
-      local token = split(bauth, ":")[2]
-      ngx.req.set_header('AUTHORIZATION', "Bearer " .. token)
+      if split(bauth, ":")[1] == "gygdev-token" then
+        local token = split(bauth, ":")[2]
+        ngx.req.set_header('AUTHORIZATION', "Bearer " .. token)
+      end
     end
   else
     ngx.header.content_type = 'text/plain'
